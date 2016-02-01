@@ -74,11 +74,20 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
     };
 
     $scope.update = function(isValid) {
+		
       /*
         Fill in this function that should update a listing if the form is valid. Once the update has 
         successfully finished, navigate back to the 'listing.list' state using $state.go(). If an error 
         occurs, pass it to $scope.error. 
        */
+	   if(isValid){
+		   var id=$stateParams.listingID;
+		   Listings.update(id, $scope.listing).then(function(response){
+		   state.go('listing.list', {sucessMessage: 'Listings Created!' }); 
+		}, function(error){
+			$scope.error="Update Error" + error;
+		});
+	   }
     };
 
     $scope.remove = function() {
@@ -86,6 +95,12 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
         Implement the remove function. If the removal is successful, navigate back to 'listing.list'. Otherwise, 
         display the error. 
        */
+	    var id=$stateParams.listingID;
+		Listings.delete(id).then(function(response){
+		   state.go('listing.list', {sucessMessage: 'Sucessfully Deleted!' }); 
+		}, function(error){
+			$scope.error="Delete Error" + error;
+		});
     };
 
     /* Bind the success message to the scope if it exists as part of the current state */
