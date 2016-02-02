@@ -81,11 +81,11 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
         occurs, pass it to $scope.error. 
        */
 	   if(isValid){
-		   var id=$stateParams.listingID;
+		   var id=$stateParams.listingId;
 		   Listings.update(id, $scope.listing).then(function(response){
-		   state.go('listing.list', {sucessMessage: 'Listings Created!' }); 
+		   $state.go('listings.list', {successMessage: 'Listings Created!' }); 
 		}, function(error){
-			$scope.error="Update Error" + error;
+			$scope.error='Update Error' + error;
 		});
 	   }
     };
@@ -95,11 +95,11 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
         Implement the remove function. If the removal is successful, navigate back to 'listing.list'. Otherwise, 
         display the error. 
        */
-	    var id=$stateParams.listingID;
+	    var id=$stateParams.listingId;
 		Listings.delete(id).then(function(response){
-		   state.go('listing.list', {sucessMessage: 'Sucessfully Deleted!' }); 
+		   $state.go('listings.list', {successMessage: 'Sucessfully Deleted!' }); 
 		}, function(error){
-			$scope.error="Delete Error" + error;
+			$scope.error='Delete Error' + error;
 		});
     };
 
